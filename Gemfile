@@ -10,10 +10,6 @@ group :test do
     gem "addressable", "2.4.0"
   end
 
-  if Gem::Version.create(RUBY_VERSION) < Gem::Version.create("2.2.2")
-    gem "rack", "~> 1.6"
-  end
-
   gem 'rspec', '~> 3.2'
   gem 'rack-test'
   gem 'simplecov'
