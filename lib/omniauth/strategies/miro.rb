@@ -35,6 +35,15 @@ module OmniAuth
         raise ::Timeout::Error
       end
 
+      def api_client
+        ::OAuth2::Client.new(options.client_id, options.client_secret, deep_symbolize(options.client_options))
+      end
+
+      def build_access_token
+        verifier = request.params["code"]
+        api_client.auth_code.get_token(verifier, {:redirect_uri => callback_url}.merge(token_params.to_hash(:symbolize_keys => true)), deep_symbolize(options.auth_token_params))
+      end
+
       alias :old_request_phase :request_phase
 
       def request_phase
